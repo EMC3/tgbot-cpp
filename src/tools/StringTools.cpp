@@ -105,7 +105,7 @@ string urlEncode(const string& value, const std::string& additionalLegitChars) {
 
 string urlDecode(const string& value) {
 	string result;
-	for (size_t i = 0, count = value.length(); i < count; ++i) {
+	for (size_t i = 0, count = value.length(); i != count; ++i) {
 		const char c = value[i];
 		if (c == '%') {
 			int t = 0;

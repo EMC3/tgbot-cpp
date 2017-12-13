@@ -35,7 +35,7 @@ Url::Url(const string& url) {
 	bool isPathParsed = false;
 	bool isQueryParsed = false;
 
-	for (size_t i = 0, count = url.length(); i < count; ++i) {
+	for (size_t i = 0, count = url.length(); i != count; ++i) {
 		char c = url[i];
 
 		if (!isProtocolParsed) {

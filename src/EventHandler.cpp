@@ -41,13 +41,13 @@ void EventHandler::handleUpdate(const Update::Ptr update) const {
     }
 }
 
-void EventHandler::handleMessage(const Message::Ptr message) const {
+inline void EventHandler::handleMessage(const Message::Ptr message) const {
     _broadcaster->broadcastAnyMessage(message);
 
     if (StringTools::startsWith(message->text, "/")) {
-        unsigned long splitPosition;
-        unsigned long spacePosition = message->text.find(' ');
-        unsigned long atSymbolPosition = message->text.find('@');
+        uint64_t splitPosition;
+        uint64_t spacePosition = message->text.find(' ');
+        uint64_t atSymbolPosition = message->text.find('@');
         if (spacePosition == message->text.npos) {
             if (atSymbolPosition == message->text.npos) {
                 splitPosition = message->text.size();

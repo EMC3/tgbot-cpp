@@ -54,7 +54,7 @@ string HttpClient::makeRequest(const Url& url, const vector<HttpReqArg>& args) {
 	write(socket, buffer(requestText.c_str(), requestText.length()));
 
 	string response;
-	char buff[1024];
+	char buff[2048];
 	boost::system::error_code error;
 	while (!error) {
 		size_t bytes = read(socket, buffer(buff), error);

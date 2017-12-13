@@ -173,6 +173,7 @@ public:
 	/**
 	 * Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
 	 */
+	User::Ptr newChatMember;
 	std::vector<User::Ptr> newChatMembers;
 
 	/**
