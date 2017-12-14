@@ -27,18 +27,16 @@
 #include <iomanip>
 #include <stdio.h>
 
-using namespace std;
-
 namespace StringTools {
 
-bool startsWith(const string& str1, const string& str2) {
+bool startsWith(const std::string& str1, const std::string& str2) {
 	if (str1.length() < str2.length()) {
 		return false;
 	}
-	string::const_iterator it1(str1.begin());
-	string::const_iterator end1(str1.end());
-	string::const_iterator it2(str2.begin());
-	string::const_iterator end2(str2.end());
+	std::string::const_iterator it1(str1.begin());
+	std::string::const_iterator end1(str1.end());
+	std::string::const_iterator it2(str2.begin());
+	std::string::const_iterator end2(str2.end());
 	while (it1 != end1 && it2 != end2) {
 		if (*it1 != *it2) {
 			return false;
@@ -49,14 +47,14 @@ bool startsWith(const string& str1, const string& str2) {
 	return true;
 }
 
-bool endsWith(const string& str1, const string& str2) {
+bool endsWith(const std::string& str1, const std::string& str2) {
 	if (str1.length() < str2.length()) {
 		return false;
 	}
-	string::const_iterator it1(str1.end());
-	string::const_iterator begin1(str1.begin());
-	string::const_iterator it2(str2.end());
-	string::const_iterator begin2(str2.begin());
+	std::string::const_iterator it1(str1.end());
+	std::string::const_iterator begin1(str1.begin());
+	std::string::const_iterator it2(str2.end());
+	std::string::const_iterator begin2(str2.begin());
 	--begin1;
 	--begin2;
 	while (it1 != begin1 && it2 != begin2) {
@@ -69,18 +67,18 @@ bool endsWith(const string& str1, const string& str2) {
 	return true;
 }
 
-void split(const string& str, char delimiter, vector<string>& dest) {
-	istringstream stream(str);
-	string s;
+void split(const std::string& str, char delimiter, std::vector<std::string>& dest) {
+	std::stringstream stream(str);
+	std::string s;
 	while (getline(stream, s, delimiter)) {
 		dest.push_back(s);
 	}
 }
 
-string generateRandomString(size_t length) {
-	static const string chars("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-=[]\\;',./!@#$%^&*()_+{}|:\"<>?`~");
+std::string generateRandomString(size_t length) {
+	static const std::string chars("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-=[]\\;',./!@#$%^&*()_+{}|:\"<>?`~");
 	static const size_t charsLen = chars.length();
-	string result;
+	std::string result;
 	for (size_t i = 0; i < length; ++i) {
 		result += chars[rand() % charsLen];
 	}
@@ -88,8 +86,8 @@ string generateRandomString(size_t length) {
 }
 
 
-string urlEncode(const string& value, const std::string& additionalLegitChars) {
-	static const string legitPunctuation = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-~:";
+std::string urlEncode(const std::string& value, const std::string& additionalLegitChars) {
+	static const std::string legitPunctuation = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-~:";
 	std::stringstream ss;
 	for (auto const &c : value) {
 		if ((legitPunctuation.find(c) == std::string::npos)
@@ -103,8 +101,8 @@ string urlEncode(const string& value, const std::string& additionalLegitChars) {
 	return ss.str();
 }
 
-string urlDecode(const string& value) {
-	string result;
+std::string urlDecode(const std::string& value) {
+	std::string result;
 	for (size_t i = 0, count = value.length(); i != count; ++i) {
 		const char c = value[i];
 		if (c == '%') {

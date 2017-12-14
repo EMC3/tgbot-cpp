@@ -26,15 +26,14 @@
 
 #include "utils.h"
 
-using namespace std;
 using namespace TgBot;
 
 BOOST_AUTO_TEST_SUITE(tHttpParser)
 
 BOOST_AUTO_TEST_CASE(generateRequest) {
-	vector<HttpReqArg> args = { HttpReqArg("email", "test@example.com"), HttpReqArg("text", "Hello, world!") };
-	string t = HttpParser::getInstance().generateRequest(Url("http://example.com/index.html"), args, true);
-	string e = ""
+	std::vector<HttpReqArg> args = { HttpReqArg("email", "test@example.com"), HttpReqArg("text", "Hello, world!") };
+	std::string t = HttpParser::getInstance().generateRequest(Url("http://example.com/index.html"), args, true);
+	std::string e = ""
 		"POST /index.html HTTP/1.1\r\n"
 		"Host: example.com\r\n"
 		"Connection: keep-alive\r\n"
@@ -46,10 +45,10 @@ BOOST_AUTO_TEST_CASE(generateRequest) {
 }
 
 BOOST_AUTO_TEST_CASE(generateMultipartFormData) {
-	vector<HttpReqArg> args = { HttpReqArg("email", "test@example.com"), HttpReqArg("text", "Hello, world!", true) };
-	string boundary = HttpParser::getInstance().generateMultipartBoundary(args);
-	string t = HttpParser::getInstance().generateMultipartFormData(args, boundary);
-	string e = ""
+	std::vector<HttpReqArg> args = { HttpReqArg("email", "test@example.com"), HttpReqArg("text", "Hello, world!", true) };
+	std::string boundary = HttpParser::getInstance().generateMultipartBoundary(args);
+	std::string t = HttpParser::getInstance().generateMultipartFormData(args, boundary);
+	std::string e = ""
 		"--" + boundary + "\r\n"
 		"Content-Disposition: form-data; name=\"email\"\r\n"
 		"\r\n"
@@ -64,15 +63,15 @@ BOOST_AUTO_TEST_CASE(generateMultipartFormData) {
 }
 
 BOOST_AUTO_TEST_CASE(generateWwwFormUrlencoded) {
-	vector<HttpReqArg> args = { HttpReqArg("email", "test@example.com"), HttpReqArg("text", "Hello, world!") };
-	string t = HttpParser::getInstance().generateWwwFormUrlencoded(args);
-	string e = "email=test%40example.com&text=Hello%2C%20world%21";
+	std::vector<HttpReqArg> args = { HttpReqArg("email", "test@example.com"), HttpReqArg("text", "Hello, world!") };
+	std::string t = HttpParser::getInstance().generateWwwFormUrlencoded(args);
+	std::string e = "email=test%40example.com&text=Hello%2C%20world%21";
 	BOOST_CHECK_MESSAGE(t == e, diffS(t, e));
 }
 
 BOOST_AUTO_TEST_CASE(generateResponse) {
-	string t = HttpParser::getInstance().generateResponse("testdata");
-	string e = ""
+	std::string t = HttpParser::getInstance().generateResponse("testdata");
+	std::string e = ""
 		"HTTP/1.1 200 OK\r\n"
 		"Content-Type: text/plain\r\n"
 		"Content-Length: 8\r\n"
@@ -82,7 +81,7 @@ BOOST_AUTO_TEST_CASE(generateResponse) {
 }
 
 BOOST_AUTO_TEST_CASE(parseRequest) {
-	string data = ""
+	std::string data = ""
 		"POST /index.html HTTP/1.1\r\n"
 		"Host: example.com\r\n"
 		"Connection: keep-alive\r\n"
@@ -91,10 +90,10 @@ BOOST_AUTO_TEST_CASE(parseRequest) {
 		"\r\n"
 		"testdata";
 
-	map<string, string> tHeaders;
-	string t = HttpParser::getInstance().parseRequest(data, tHeaders);
+	std::map<std::string, std::string> tHeaders;
+	std::string t = HttpParser::getInstance().parseRequest(data, tHeaders);
 
-	map<string, string> eHeaders = {
+	std::map<std::string, std::string> eHeaders = {
 		{ "method", "POST" },
 		{ "path", "/index.html" },
 		{ "host", "example.com" },
@@ -102,34 +101,34 @@ BOOST_AUTO_TEST_CASE(parseRequest) {
 		{ "content-type", "text/plain" },
 		{ "content-length", "8" }
 	};
-	string e = "testdata";
+	std::string e = "testdata";
 
 	BOOST_CHECK_MESSAGE(t == e, diffS(t, e));
-	BOOST_CHECK_MESSAGE(tHeaders == eHeaders, diff(tHeaders, eHeaders, [](const pair<const string, string>& item) -> string {
+	BOOST_CHECK_MESSAGE(tHeaders == eHeaders, diff(tHeaders, eHeaders, [](const std::pair<const std::string, std::string>& item) -> std::string {
 		return item.first + '=' + item.second;
 	}));
 }
 
 BOOST_AUTO_TEST_CASE(parseResponse) {
-	string data = ""
+	std::string data = ""
 		"HTTP/1.1 200 OK\r\n"
 		"Content-Type: text/plain\r\n"
 		"Content-Length: 8\r\n"
 		"\r\n"
 		"testdata";
 
-	map<string, string> tHeaders;
-	string t = HttpParser::getInstance().parseResponse(data, tHeaders);
+	std::map<std::string, std::string> tHeaders;
+	std::string t = HttpParser::getInstance().parseResponse(data, tHeaders);
 
-	map<string, string> eHeaders = {
+	std::map<std::string, std::string> eHeaders = {
 		{ "status", "200" },
 		{ "content-type", "text/plain" },
 		{ "content-length", "8" }
 	};
-	string e = "testdata";
+	std::string e = "testdata";
 
 	BOOST_CHECK_MESSAGE(t == e, diffS(t, e));
-	BOOST_CHECK_MESSAGE(tHeaders == eHeaders, diff(tHeaders, eHeaders, [](const pair<const string, string>& item) -> string {
+	BOOST_CHECK_MESSAGE(tHeaders == eHeaders, diff(tHeaders, eHeaders, [](const std::pair<const std::string, std::string>& item) -> std::string {
 		return item.first + '=' + item.second;
 	}));
 }

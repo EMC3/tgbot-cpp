@@ -8,14 +8,13 @@
 
 #include <tgbot/tgbot.h>
 
-using namespace std;
 using namespace TgBot;
 
 bool sigintGot = false;
 
 int main() {
-	const string photoFilePath = "example.jpg";
-	const string photoMimeType = "image/jpeg";
+	const std::string photoFilePath = "example.jpg";
+	const std::string photoMimeType = "image/jpeg";
 
 	Bot bot("PLACE YOUR TOKEN HERE");
 	bot.getEvents().onCommand("start", [&bot](Message::Ptr message) {
@@ -37,7 +36,7 @@ int main() {
 			printf("Long poll started\n");
 			longPoll.start();
 		}
-	} catch (exception& e) {
+	} catch (std::exception& e) {
 		printf("error: %s\n", e.what());
 	}
 

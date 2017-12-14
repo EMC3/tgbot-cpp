@@ -25,11 +25,9 @@
 
 #include "tgbot/tools/StringTools.h"
 
-using namespace std;
-
 namespace TgBot {
 
-Url::Url(const string& url) {
+Url::Url(const std::string& url) {
 	bool isProtocolParsed = false;
 	bool isHostParsed = false;
 	bool isPathParsed = false;

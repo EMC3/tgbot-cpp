@@ -25,7 +25,6 @@
 
 #include <boost/asio/ssl.hpp>
 
-using namespace std;
 using namespace boost::asio;
 using namespace boost::asio::ip;
 
@@ -36,7 +35,7 @@ HttpClient& HttpClient::getInstance() {
 	return result;
 }
 
-string HttpClient::makeRequest(const Url& url, const vector<HttpReqArg>& args) {
+std::string HttpClient::makeRequest(const Url& url, const std::vector<HttpReqArg>& args) {
 	ssl::context context(ssl::context::sslv23);
 	context.set_default_verify_paths();
 
@@ -50,15 +49,15 @@ string HttpClient::makeRequest(const Url& url, const vector<HttpReqArg>& args) {
 	socket.set_verify_callback(ssl::rfc2818_verification(url.host));
 	socket.handshake(ssl::stream<tcp::socket>::client);
 
-	string requestText = HttpParser::getInstance().generateRequest(url, args, false);
+	std::string requestText = HttpParser::getInstance().generateRequest(url, args, false);
 	write(socket, buffer(requestText.c_str(), requestText.length()));
 
-	string response;
+	std::string response;
 	char buff[2048];
 	boost::system::error_code error;
 	while (!error) {
 		size_t bytes = read(socket, buffer(buff), error);
-		response += string(buff, bytes);
+		response += std::string(buff, bytes);
 	}
 
 	return HttpParser::getInstance().parseResponse(response);

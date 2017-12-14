@@ -26,14 +26,12 @@
 #include <fstream>
 #include <sstream>
 
-using namespace std;
-
 namespace FileTools {
 
 std::string read(const std::string& filePath) {
-	ifstream in(filePath, ios::in | ios::binary);
+	std::ifstream in(filePath, std::ios::in | std::ios::binary);
 	if (in) {
-		ostringstream contents;
+		std::ostringstream contents;
 		contents << in.rdbuf();
 		in.close();
 		return contents.str();
@@ -42,7 +40,7 @@ std::string read(const std::string& filePath) {
 }
 
 bool write(const std::string& content, const std::string& filePath) {
-	ofstream out(filePath, ios::out | ios::binary);
+	std::ofstream out(filePath, std::ios::out | std::ios::binary);
 	if (out) {
 		out << content;
 		out.close();

@@ -26,7 +26,6 @@
 
 #include <tgbot/tgbot.h>
 
-using namespace std;
 using namespace TgBot;
 
 bool sigintGot = false;
@@ -56,7 +55,7 @@ int main() {
 			printf("Long poll started\n");
 			longPoll.start();
 		}
-	} catch (exception& e) {
+	} catch (std::exception& e) {
 		printf("error: %s\n", e.what());
 	}
 

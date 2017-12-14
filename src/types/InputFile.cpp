@@ -28,11 +28,9 @@
 #include "tgbot/tools/StringTools.h"
 #include "tgbot/tools/FileTools.h"
 
-using namespace std;
-
 namespace TgBot {
 
-InputFile::Ptr InputFile::fromFile(const string& filePath, const string& mimeType) {
+InputFile::Ptr InputFile::fromFile(const std::string& filePath, const std::string& mimeType) {
 	auto result(std::make_shared<InputFile>());
 	result->data = FileTools::read(filePath);
 	result->mimeType = mimeType;

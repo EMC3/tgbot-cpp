@@ -27,7 +27,6 @@
 
 #include "tgbot/tools/StringTools.h"
 
-using namespace std;
 using namespace boost;
 
 namespace TgBot {
@@ -37,8 +36,8 @@ HttpParser& HttpParser::getInstance() {
 	return result;
 }
 
-string HttpParser::generateRequest(const Url& url, const vector<HttpReqArg>& args, bool isKeepAlive) {
-	string result;
+std::string HttpParser::generateRequest(const Url& url, const std::vector<HttpReqArg>& args, bool isKeepAlive) {
+	std::string result;
 	if (args.empty()) {
 		result += "GET ";
 	} else {
@@ -59,9 +58,9 @@ string HttpParser::generateRequest(const Url& url, const vector<HttpReqArg>& arg
 	if (args.empty()) {
 		result += "\r\n";
 	} else {
-		string requestData;
+		std::string requestData;
 
-		string bondary = generateMultipartBoundary(args);
+		std::string bondary = generateMultipartBoundary(args);
 		if (bondary.empty()) {
 			result += "Content-Type: application/x-www-form-urlencoded\r\n";
 			requestData = generateWwwFormUrlencoded(args);
@@ -73,15 +72,15 @@ string HttpParser::generateRequest(const Url& url, const vector<HttpReqArg>& arg
 		}
 
 		result += "Content-Length: ";
-		result += lexical_cast<string>(requestData.length());
+		result += lexical_cast<std::string>(requestData.length());
 		result += "\r\n\r\n";
 		result += requestData;
 	}
 	return result;
 }
 
-string HttpParser::generateMultipartFormData(const vector<HttpReqArg>& args, const string& bondary) {
-	string result;
+std::string HttpParser::generateMultipartFormData(const std::vector<HttpReqArg>& args, const std::string& bondary) {
+	std::string result;
 	for (const HttpReqArg& item : args) {
 		result += "--";
 		result += bondary;
@@ -104,8 +103,8 @@ string HttpParser::generateMultipartFormData(const vector<HttpReqArg>& args, con
 	return result;
 }
 
-string HttpParser::generateMultipartBoundary(const vector<HttpReqArg>& args) {
-	string result;
+std::string HttpParser::generateMultipartBoundary(const std::vector<HttpReqArg>& args) {
+	std::string result;
 	srand((unsigned int) time(nullptr));
 	for (const HttpReqArg& item : args) {
 		if (item.isFile) {
@@ -117,8 +116,8 @@ string HttpParser::generateMultipartBoundary(const vector<HttpReqArg>& args) {
 	return result;
 }
 
-string HttpParser::generateWwwFormUrlencoded(const vector<HttpReqArg>& args) {
-	string result;
+std::string HttpParser::generateWwwFormUrlencoded(const std::vector<HttpReqArg>& args) {
+	std::string result;
 
 	bool firstRun = true;
 	for (const HttpReqArg& item : args) {
@@ -135,22 +134,22 @@ string HttpParser::generateWwwFormUrlencoded(const vector<HttpReqArg>& args) {
 	return result;
 }
 
-string HttpParser::generateResponse(const string& data, const string& mimeType, unsigned short statusCode, const string& statusStr, bool isKeepAlive) {
-	string result;
+std::string HttpParser::generateResponse(const std::string& data, const std::string& mimeType, unsigned short statusCode, const std::string& statusStr, bool isKeepAlive) {
+	std::string result;
 	result += "HTTP/1.1 ";
-	result += lexical_cast<string>(statusCode);
+	result += lexical_cast<std::string>(statusCode);
 	result += ' ';
 	result += statusStr;
 	result += "\r\nContent-Type: ";
 	result += mimeType;
 	result += "\r\nContent-Length: ";
-	result += lexical_cast<string>(data.length());
+	result += lexical_cast<std::string>(data.length());
 	result += "\r\n\r\n";
 	result += data;
 	return result;
 }
 
-string HttpParser::parseHttp(bool isRequest, const string& data, map<string, string>& headers) {
+std::string HttpParser::parseHttp(bool isRequest, const std::string& data, std::map<std::string, std::string>& headers) {
 	bool onlyNewLineChar = false;
 	size_t headerEnd = data.find("\r\n\r\n");
 	if (headerEnd == data.npos) {
@@ -195,7 +194,7 @@ string HttpParser::parseHttp(bool isRequest, const string& data, map<string, str
 	return headerEnd == data.npos ? "" : data.substr(headerEnd);
 }
 
-string HttpParser::parseHttp(bool isRequest, const string& data) {
+std::string HttpParser::parseHttp(bool isRequest, const std::string& data) {
 	size_t headerEnd = data.find("\r\n\r\n");
 	if (headerEnd != data.npos) {
 		headerEnd += 4;
