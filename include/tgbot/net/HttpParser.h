@@ -33,16 +33,15 @@
 
 namespace TgBot {
 
-class HttpParser {
-
-public:
-	static HttpParser& getInstance();
-
+namespace HttpParser {
 	std::string generateRequest(const Url& url, const std::vector<HttpReqArg>& args, bool isKeepAlive = false);
 	std::string generateMultipartFormData(const std::vector<HttpReqArg>& args, const std::string& bondary);
 	std::string generateMultipartBoundary(const std::vector<HttpReqArg>& args);
 	std::string generateWwwFormUrlencoded(const std::vector<HttpReqArg>& args);
 	std::string generateResponse(const std::string& data, const std::string& mimeType = "text/plain", short unsigned statusCode = 200, const std::string& statusStr = "OK", bool isKeepAlive = false);
+
+	std::string parseHttp(bool isRequest, const std::string& data, std::map<std::string, std::string>& headers);
+	std::string parseHttp(bool isRequest, const std::string& data);
 
 	inline std::string parseRequest(const std::string& data, std::map<std::string, std::string>& headers) {
 		return parseHttp(true, data, headers);
@@ -59,10 +58,6 @@ public:
 	inline std::string parseResponse(const std::string& data) {
 		return parseHttp(false, data);
 	}
-
-private:
-	std::string parseHttp(bool isRequest, const std::string& data, std::map<std::string, std::string>& headers);
-	std::string parseHttp(bool isRequest, const std::string& data);
 };
 
 }

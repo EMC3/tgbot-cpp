@@ -31,11 +31,6 @@ using namespace boost;
 
 namespace TgBot {
 
-HttpParser& HttpParser::getInstance() {
-	static HttpParser result;
-	return result;
-}
-
 std::string HttpParser::generateRequest(const Url& url, const std::vector<HttpReqArg>& args, bool isKeepAlive) {
 	std::string result;
 	if (args.empty()) {
