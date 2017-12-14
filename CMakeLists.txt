@@ -14,7 +14,6 @@ option(TGBOT_ENABLE_TESTS "Enable building of tests" OFF)
 set(TGBOT_SOURCES
 	src/Api.cpp
 	src/TgTypeParser.cpp
-	src/TgException.cpp
 	src/EventHandler.cpp
 	src/net/Url.cpp
 	src/net/HttpClient.cpp
