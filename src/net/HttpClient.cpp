@@ -46,7 +46,7 @@ std::string HttpClient::makeRequest(const Url& url, const std::vector<HttpReqArg
 	socket.set_verify_callback(ssl::rfc2818_verification(url.host));
 	socket.handshake(ssl::stream<tcp::socket>::client);
 
-	std::string requestText = HttpParser::getInstance().generateRequest(url, args, false);
+	std::string requestText = HttpParser::generateRequest(url, args, false);
 	write(socket, buffer(requestText.c_str(), requestText.length()));
 
 	std::string response;
