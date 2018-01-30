@@ -30,13 +30,13 @@ namespace FileTools {
 
 std::string read(const std::string& filePath) {
 	std::ifstream in(filePath, std::ios::in | std::ios::binary);
-	if (in) {
-		std::ostringstream contents;
-		contents << in.rdbuf();
-		in.close();
-		return contents.str();
+	if (!in) {
+		throw std::system_error(errno, std::system_category());
 	}
-	throw errno;
+	std::ostringstream contents;
+	contents << in.rdbuf();
+	in.close();
+	return contents.str();
 }
 
 bool write(const std::string& content, const std::string& filePath) {
