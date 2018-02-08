@@ -44,11 +44,12 @@ public:
 	 * Starts long poll. After new update will come, this method will parse it and send to EventHandler which invokes your listeners. Designed to be executed in a loop.
 	 */
 	void start();
-
+	void setMaxTime(int seconds);
 private:
 	int32_t _lastUpdateId = 0;
 	const Api* _api;
 	const EventHandler* _eventHandler;
+	int timeout = 100;
 };
 
 }
