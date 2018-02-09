@@ -33,180 +33,184 @@
 
 namespace TgBot {
 
-namespace TgTypeParser {
+class TgTypeParser {
+
+public:
 	template<typename T>
-	using JsonToTgTypeFunc = std::shared_ptr<T> (*)(const boost::property_tree::ptree&);
+	using JsonToTgTypeFunc = std::shared_ptr<T> (TgTypeParser::*)(const boost::property_tree::ptree&) const;
 
 	template<typename T>
-	using TgTypeToJsonFunc = std::string (*)(const std::shared_ptr<T>&);
+	using TgTypeToJsonFunc = std::string (TgTypeParser::*)(const std::shared_ptr<T>&) const;
 
-	Chat::Ptr parseJsonAndGetChat(const boost::property_tree::ptree& data);
-	std::string parseChat(const Chat::Ptr& object);
-	User::Ptr parseJsonAndGetUser(const boost::property_tree::ptree& data);
-	std::string parseUser(const User::Ptr& object);
-	MessageEntity::Ptr parseJsonAndGetEntity(const boost::property_tree::ptree& data);
-	Message::Ptr parseJsonAndGetMessage(const boost::property_tree::ptree& data);
-	std::string parseMessage(const Message::Ptr& object);
-	PhotoSize::Ptr parseJsonAndGetPhotoSize(const boost::property_tree::ptree& data);
-	std::string parsePhotoSize(const PhotoSize::Ptr& object);
-	Audio::Ptr parseJsonAndGetAudio(const boost::property_tree::ptree& data);
-	std::string parseAudio(const Audio::Ptr& object);
-	Document::Ptr parseJsonAndGetDocument(const boost::property_tree::ptree& data);
-	std::string parseDocument(const Document::Ptr& object);
-	Sticker::Ptr parseJsonAndGetSticker(const boost::property_tree::ptree& data);
-	std::string parseSticker(const Sticker::Ptr& object);
-	Video::Ptr parseJsonAndGetVideo(const boost::property_tree::ptree& data);
-	std::string parseVideo(const Video::Ptr& object);
-	VideoNote::Ptr parseJsonAndGetVideoNote(const boost::property_tree::ptree& data);
-	std::string parseVideoNote(const VideoNote::Ptr& object);
-	Contact::Ptr parseJsonAndGetContact(const boost::property_tree::ptree& data);
-	std::string parseContact(const Contact::Ptr& object);
-	Location::Ptr parseJsonAndGetLocation(const boost::property_tree::ptree& data);
-	std::string parseLocation(const Location::Ptr& object);
-	Update::Ptr parseJsonAndGetUpdate(const boost::property_tree::ptree& data);
-	std::string parseUpdate(const Update::Ptr& object);
-	UserProfilePhotos::Ptr parseJsonAndGetUserProfilePhotos(const boost::property_tree::ptree& data);
-	std::string parseUserProfilePhotos(const UserProfilePhotos::Ptr& object);
+	static TgTypeParser& getInstance();
 
-	File::Ptr parseJsonAndGetFile(const boost::property_tree::ptree& data);
-	std::string parseFile(const File::Ptr& object);
+	Chat::Ptr parseJsonAndGetChat(const boost::property_tree::ptree& data) const;
+	std::string parseChat(const Chat::Ptr& object) const;
+	User::Ptr parseJsonAndGetUser(const boost::property_tree::ptree& data) const;
+	std::string parseUser(const User::Ptr& object) const;
+	MessageEntity::Ptr parseJsonAndGetEntity(const boost::property_tree::ptree& data) const;
+	Message::Ptr parseJsonAndGetMessage(const boost::property_tree::ptree& data) const;
+	std::string parseMessage(const Message::Ptr& object) const;
+	PhotoSize::Ptr parseJsonAndGetPhotoSize(const boost::property_tree::ptree& data) const;
+	std::string parsePhotoSize(const PhotoSize::Ptr& object) const;
+	Audio::Ptr parseJsonAndGetAudio(const boost::property_tree::ptree& data) const;
+	std::string parseAudio(const Audio::Ptr& object) const;
+	Document::Ptr parseJsonAndGetDocument(const boost::property_tree::ptree& data) const;
+	std::string parseDocument(const Document::Ptr& object) const;
+	Sticker::Ptr parseJsonAndGetSticker(const boost::property_tree::ptree& data) const;
+	std::string parseSticker(const Sticker::Ptr& object) const;
+	Video::Ptr parseJsonAndGetVideo(const boost::property_tree::ptree& data) const;
+	std::string parseVideo(const Video::Ptr& object) const;
+	VideoNote::Ptr parseJsonAndGetVideoNote(const boost::property_tree::ptree& data) const;
+	std::string parseVideoNote(const VideoNote::Ptr& object) const;
+	Contact::Ptr parseJsonAndGetContact(const boost::property_tree::ptree& data) const;
+	std::string parseContact(const Contact::Ptr& object) const;
+	Location::Ptr parseJsonAndGetLocation(const boost::property_tree::ptree& data) const;
+	std::string parseLocation(const Location::Ptr& object) const;
+	Update::Ptr parseJsonAndGetUpdate(const boost::property_tree::ptree& data) const;
+	std::string parseUpdate(const Update::Ptr& object) const;
+	UserProfilePhotos::Ptr parseJsonAndGetUserProfilePhotos(const boost::property_tree::ptree& data) const;
+	std::string parseUserProfilePhotos(const UserProfilePhotos::Ptr& object) const;
 
-	ReplyKeyboardMarkup::Ptr parseJsonAndGetReplyKeyboardMarkup(const boost::property_tree::ptree& data);
-	std::string parseReplyKeyboardMarkup(const ReplyKeyboardMarkup::Ptr& object);
+	File::Ptr parseJsonAndGetFile(const boost::property_tree::ptree& data) const;
+	std::string parseFile(const File::Ptr& object) const;
 
-	KeyboardButton::Ptr parseJsonAndGetKeyboardButton(const boost::property_tree::ptree& data);
-	std::string parseKeyboardButton(const KeyboardButton::Ptr& object);
+	ReplyKeyboardMarkup::Ptr parseJsonAndGetReplyKeyboardMarkup(const boost::property_tree::ptree& data) const;
+	std::string parseReplyKeyboardMarkup(const ReplyKeyboardMarkup::Ptr& object) const;
 
-	ReplyKeyboardRemove::Ptr parseJsonAndGetReplyKeyboardRemove(const boost::property_tree::ptree& data);
-	std::string parseReplyKeyboardRemove(const ReplyKeyboardRemove::Ptr& object);
+	KeyboardButton::Ptr parseJsonAndGetKeyboardButton(const boost::property_tree::ptree& data) const;
+	std::string parseKeyboardButton(const KeyboardButton::Ptr& object) const;
 
-	ForceReply::Ptr parseJsonAndGetForceReply(const boost::property_tree::ptree& data);
-	std::string parseForceReply(const ForceReply::Ptr& object);
+	ReplyKeyboardRemove::Ptr parseJsonAndGetReplyKeyboardRemove(const boost::property_tree::ptree& data) const;
+	std::string parseReplyKeyboardRemove(const ReplyKeyboardRemove::Ptr& object) const;
 
-	ChatMember::Ptr parseJsonAndGetChatMember(const boost::property_tree::ptree& data);
-	std::string parseChatMember(const ChatMember::Ptr& object);
+	ForceReply::Ptr parseJsonAndGetForceReply(const boost::property_tree::ptree& data) const;
+	std::string parseForceReply(const ForceReply::Ptr& object) const;
 
-	ResponseParameters::Ptr parseJsonAndGetResponseParameters(const boost::property_tree::ptree& data);
-	std::string parseResponseParameters(const ResponseParameters::Ptr& object);
+	ChatMember::Ptr parseJsonAndGetChatMember(const boost::property_tree::ptree& data) const;
+	std::string parseChatMember(const ChatMember::Ptr& object) const;
 
-	GenericReply::Ptr parseJsonAndGetGenericReply(const boost::property_tree::ptree& data);
-	std::string parseGenericReply(const GenericReply::Ptr& object);
+	ResponseParameters::Ptr parseJsonAndGetResponseParameters(const boost::property_tree::ptree& data) const;
+	std::string parseResponseParameters(const ResponseParameters::Ptr& object) const;
+
+	GenericReply::Ptr parseJsonAndGetGenericReply(const boost::property_tree::ptree& data) const;
+	std::string parseGenericReply(const GenericReply::Ptr& object) const;
 	
-	InlineQuery::Ptr parseJsonAndGetInlineQuery(const boost::property_tree::ptree& data);
-	std::string parseInlineQuery(const InlineQuery::Ptr& object);
+	InlineQuery::Ptr parseJsonAndGetInlineQuery(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQuery(const InlineQuery::Ptr& object) const;
 	
-	InlineQueryResult::Ptr parseJsonAndGetInlineQueryResult(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResult(const InlineQueryResult::Ptr& object);
+	InlineQueryResult::Ptr parseJsonAndGetInlineQueryResult(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResult(const InlineQueryResult::Ptr& object) const;
 	
-	InlineQueryResultCachedAudio::Ptr parseJsonAndGetInlineQueryResultCachedAudio(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultCachedAudio(const InlineQueryResultCachedAudio::Ptr& object);
+	InlineQueryResultCachedAudio::Ptr parseJsonAndGetInlineQueryResultCachedAudio(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultCachedAudio(const InlineQueryResultCachedAudio::Ptr& object) const;
 
-	InlineQueryResultCachedDocument::Ptr parseJsonAndGetInlineQueryResultCachedDocument(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultCachedDocument(const InlineQueryResultCachedDocument::Ptr& object);
+	InlineQueryResultCachedDocument::Ptr parseJsonAndGetInlineQueryResultCachedDocument(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultCachedDocument(const InlineQueryResultCachedDocument::Ptr& object) const;
 
-	InlineQueryResultCachedGif::Ptr parseJsonAndGetInlineQueryResultCachedGif(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultCachedGif(const InlineQueryResultCachedGif::Ptr& object);
+	InlineQueryResultCachedGif::Ptr parseJsonAndGetInlineQueryResultCachedGif(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultCachedGif(const InlineQueryResultCachedGif::Ptr& object) const;
 
-	InlineQueryResultCachedMpeg4Gif::Ptr parseJsonAndGetInlineQueryResultCachedMpeg4Gif(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultCachedMpeg4Gif(const InlineQueryResultCachedMpeg4Gif::Ptr& object);
+	InlineQueryResultCachedMpeg4Gif::Ptr parseJsonAndGetInlineQueryResultCachedMpeg4Gif(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultCachedMpeg4Gif(const InlineQueryResultCachedMpeg4Gif::Ptr& object) const;
 
-	InlineQueryResultCachedPhoto::Ptr parseJsonAndGetInlineQueryResultCachedPhoto(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultCachedPhoto(const InlineQueryResultCachedPhoto::Ptr& object);
+	InlineQueryResultCachedPhoto::Ptr parseJsonAndGetInlineQueryResultCachedPhoto(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultCachedPhoto(const InlineQueryResultCachedPhoto::Ptr& object) const;
 
-	InlineQueryResultCachedSticker::Ptr parseJsonAndGetInlineQueryResultCachedSticker(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultCachedSticker(const InlineQueryResultCachedSticker::Ptr& object);
+	InlineQueryResultCachedSticker::Ptr parseJsonAndGetInlineQueryResultCachedSticker(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultCachedSticker(const InlineQueryResultCachedSticker::Ptr& object) const;
 
-	InlineQueryResultCachedVideo::Ptr parseJsonAndGetInlineQueryResultCachedVideo(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultCachedVideo(const InlineQueryResultCachedVideo::Ptr& object);
+	InlineQueryResultCachedVideo::Ptr parseJsonAndGetInlineQueryResultCachedVideo(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultCachedVideo(const InlineQueryResultCachedVideo::Ptr& object) const;
 
-	InlineQueryResultCachedVoice::Ptr parseJsonAndGetInlineQueryResultCachedVoice(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultCachedVoice(const InlineQueryResultCachedVoice::Ptr& object);
+	InlineQueryResultCachedVoice::Ptr parseJsonAndGetInlineQueryResultCachedVoice(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultCachedVoice(const InlineQueryResultCachedVoice::Ptr& object) const;
 
-	InlineQueryResultArticle::Ptr parseJsonAndGetInlineQueryResultArticle(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultArticle(const InlineQueryResultArticle::Ptr& object);
+	InlineQueryResultArticle::Ptr parseJsonAndGetInlineQueryResultArticle(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultArticle(const InlineQueryResultArticle::Ptr& object) const;
 
-	InlineQueryResultAudio::Ptr parseJsonAndGetInlineQueryResultAudio(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultAudio(const InlineQueryResultAudio::Ptr& object);
+	InlineQueryResultAudio::Ptr parseJsonAndGetInlineQueryResultAudio(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultAudio(const InlineQueryResultAudio::Ptr& object) const;
 
-	InlineQueryResultContact::Ptr parseJsonAndGetInlineQueryResultContact(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultContact(const InlineQueryResultContact::Ptr& object);
+	InlineQueryResultContact::Ptr parseJsonAndGetInlineQueryResultContact(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultContact(const InlineQueryResultContact::Ptr& object) const;
 
-	InlineQueryResultGame::Ptr parseJsonAndGetInlineQueryResultGame(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultGame(const InlineQueryResultGame::Ptr& object);
+	InlineQueryResultGame::Ptr parseJsonAndGetInlineQueryResultGame(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultGame(const InlineQueryResultGame::Ptr& object) const;
 
-	InlineQueryResultDocument::Ptr parseJsonAndGetInlineQueryResultDocument(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultDocument(const InlineQueryResultDocument::Ptr& object);
+	InlineQueryResultDocument::Ptr parseJsonAndGetInlineQueryResultDocument(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultDocument(const InlineQueryResultDocument::Ptr& object) const;
 
-	InlineQueryResultLocation::Ptr parseJsonAndGetInlineQueryResultLocation(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultLocation(const InlineQueryResultLocation::Ptr& object);
+	InlineQueryResultLocation::Ptr parseJsonAndGetInlineQueryResultLocation(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultLocation(const InlineQueryResultLocation::Ptr& object) const;
 
-	InlineQueryResultVenue::Ptr parseJsonAndGetInlineQueryResultVenue(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultVenue(const InlineQueryResultVenue::Ptr& object);
+	InlineQueryResultVenue::Ptr parseJsonAndGetInlineQueryResultVenue(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultVenue(const InlineQueryResultVenue::Ptr& object) const;
 
-	InlineQueryResultVoice::Ptr parseJsonAndGetInlineQueryResultVoice(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultVoice(const InlineQueryResultVoice::Ptr& object);
+	InlineQueryResultVoice::Ptr parseJsonAndGetInlineQueryResultVoice(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultVoice(const InlineQueryResultVoice::Ptr& object) const;
 
-	InlineQueryResultPhoto::Ptr parseJsonAndGetInlineQueryResultPhoto(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultPhoto(const InlineQueryResultPhoto::Ptr& object);
-	InlineQueryResultGif::Ptr parseJsonAndGetInlineQueryResultGif(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultGif(const InlineQueryResultGif::Ptr& object);
-	InlineQueryResultMpeg4Gif::Ptr parseJsonAndGetInlineQueryResultMpeg4Gif(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultMpeg4Gif(const InlineQueryResultMpeg4Gif::Ptr& object);
-	InlineQueryResultVideo::Ptr parseJsonAndGetInlineQueryResultVideo(const boost::property_tree::ptree& data);
-	std::string parseInlineQueryResultVideo(const InlineQueryResultVideo::Ptr& object);
-	ChosenInlineResult::Ptr parseJsonAndGetChosenInlineResult(const boost::property_tree::ptree& data);
-	std::string parseChosenInlineResult(const ChosenInlineResult::Ptr& object);
+	InlineQueryResultPhoto::Ptr parseJsonAndGetInlineQueryResultPhoto(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultPhoto(const InlineQueryResultPhoto::Ptr& object) const;
+	InlineQueryResultGif::Ptr parseJsonAndGetInlineQueryResultGif(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultGif(const InlineQueryResultGif::Ptr& object) const;
+	InlineQueryResultMpeg4Gif::Ptr parseJsonAndGetInlineQueryResultMpeg4Gif(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultMpeg4Gif(const InlineQueryResultMpeg4Gif::Ptr& object) const;
+	InlineQueryResultVideo::Ptr parseJsonAndGetInlineQueryResultVideo(const boost::property_tree::ptree& data) const;
+	std::string parseInlineQueryResultVideo(const InlineQueryResultVideo::Ptr& object) const;
+	ChosenInlineResult::Ptr parseJsonAndGetChosenInlineResult(const boost::property_tree::ptree& data) const;
+	std::string parseChosenInlineResult(const ChosenInlineResult::Ptr& object) const;
 
-	CallbackQuery::Ptr parseJsonAndGetCallbackQuery(const boost::property_tree::ptree& data);
-	std::string parseCallbackQuery(const CallbackQuery::Ptr& object);
-	InlineKeyboardMarkup::Ptr parseJsonAndGetInlineKeyboardMarkup(const boost::property_tree::ptree& data);
-	std::string parseInlineKeyboardMarkup(const InlineKeyboardMarkup::Ptr& object);
-	InlineKeyboardButton::Ptr parseJsonAndGetInlineKeyboardButton(const boost::property_tree::ptree& data);
-	std::string parseInlineKeyboardButton(const InlineKeyboardButton::Ptr& object);
+	CallbackQuery::Ptr parseJsonAndGetCallbackQuery(const boost::property_tree::ptree& data) const;
+	std::string parseCallbackQuery(const CallbackQuery::Ptr& object) const;
+	InlineKeyboardMarkup::Ptr parseJsonAndGetInlineKeyboardMarkup(const boost::property_tree::ptree& data) const;
+	std::string parseInlineKeyboardMarkup(const InlineKeyboardMarkup::Ptr& object) const;
+	InlineKeyboardButton::Ptr parseJsonAndGetInlineKeyboardButton(const boost::property_tree::ptree& data) const;
+	std::string parseInlineKeyboardButton(const InlineKeyboardButton::Ptr& object) const;
 
-	WebhookInfo::Ptr parseJsonAndGetWebhookInfo(const boost::property_tree::ptree& data);
-	std::string parseWebhookInfo(const WebhookInfo::Ptr& object);
+	WebhookInfo::Ptr parseJsonAndGetWebhookInfo(const boost::property_tree::ptree& data) const;
+	std::string parseWebhookInfo(const WebhookInfo::Ptr& object) const;
 
-	InputMessageContent::Ptr parseJsonAndGetInputMessageContent(const boost::property_tree::ptree& data);
-	std::string parseInputMessageContent(const InputMessageContent::Ptr& object);
+	InputMessageContent::Ptr parseJsonAndGetInputMessageContent(const boost::property_tree::ptree& data) const;
+	std::string parseInputMessageContent(const InputMessageContent::Ptr& object) const;
 
-	InputTextMessageContent::Ptr parseJsonAndGetInputTextMessageContent(const boost::property_tree::ptree& data);
-	std::string parseInputTextMessageContent(const InputTextMessageContent::Ptr& object);
+	InputTextMessageContent::Ptr parseJsonAndGetInputTextMessageContent(const boost::property_tree::ptree& data) const;
+	std::string parseInputTextMessageContent(const InputTextMessageContent::Ptr& object) const;
 
-	InputLocationMessageContent::Ptr parseJsonAndGetInputLocationMessageContent(const boost::property_tree::ptree& data);
-	std::string parseInputLocationMessageContent(const InputLocationMessageContent::Ptr& object);
+	InputLocationMessageContent::Ptr parseJsonAndGetInputLocationMessageContent(const boost::property_tree::ptree& data) const;
+	std::string parseInputLocationMessageContent(const InputLocationMessageContent::Ptr& object) const;
 
-	InputVenueMessageContent::Ptr parseJsonAndGetInputVenueMessageContent(const boost::property_tree::ptree& data);
-	std::string parseInputVenueMessageContent(const InputVenueMessageContent::Ptr& object);
+	InputVenueMessageContent::Ptr parseJsonAndGetInputVenueMessageContent(const boost::property_tree::ptree& data) const;
+	std::string parseInputVenueMessageContent(const InputVenueMessageContent::Ptr& object) const;
 
-	InputContactMessageContent::Ptr parseJsonAndGetInputContactMessageContent(const boost::property_tree::ptree& data);
-	std::string parseInputContactMessageContent(const InputContactMessageContent::Ptr& object);
+	InputContactMessageContent::Ptr parseJsonAndGetInputContactMessageContent(const boost::property_tree::ptree& data) const;
+	std::string parseInputContactMessageContent(const InputContactMessageContent::Ptr& object) const;
 
-	Invoice::Ptr parseJsonAndGetInvoice(const boost::property_tree::ptree& data);
-	std::string parseInvoice(const Invoice::Ptr& object);
+	Invoice::Ptr parseJsonAndGetInvoice(const boost::property_tree::ptree& data) const;
+	std::string parseInvoice(const Invoice::Ptr& object) const;
 
-	LabeledPrice::Ptr parseJsonAndGetLabeledPrice(const boost::property_tree::ptree& data);
-	std::string parseLabeledPrice(const LabeledPrice::Ptr& object);
+	LabeledPrice::Ptr parseJsonAndGetLabeledPrice(const boost::property_tree::ptree& data) const;
+	std::string parseLabeledPrice(const LabeledPrice::Ptr& object) const;
 
-	OrderInfo::Ptr parseJsonAndGetOrderInfo(const boost::property_tree::ptree& data);
-	std::string parseOrderInfo(const OrderInfo::Ptr& object);
+	OrderInfo::Ptr parseJsonAndGetOrderInfo(const boost::property_tree::ptree& data) const;
+	std::string parseOrderInfo(const OrderInfo::Ptr& object) const;
 
-	PreCheckoutQuery::Ptr parseJsonAndGetPreCheckoutQuery(const boost::property_tree::ptree& data);
-	std::string parsePreCheckoutQuery(const PreCheckoutQuery::Ptr& object);
+	PreCheckoutQuery::Ptr parseJsonAndGetPreCheckoutQuery(const boost::property_tree::ptree& data) const;
+	std::string parsePreCheckoutQuery(const PreCheckoutQuery::Ptr& object) const;
 
-	ShippingAddress::Ptr parseJsonAndGetShippingAddress(const boost::property_tree::ptree& data);
-	std::string parseShippingAddress(const ShippingAddress::Ptr& object);
+	ShippingAddress::Ptr parseJsonAndGetShippingAddress(const boost::property_tree::ptree& data) const;
+	std::string parseShippingAddress(const ShippingAddress::Ptr& object) const;
 
-	ShippingOption::Ptr parseJsonAndGetShippingOption(const boost::property_tree::ptree& data);
-	std::string parseShippingOption(const ShippingOption::Ptr& object);
+	ShippingOption::Ptr parseJsonAndGetShippingOption(const boost::property_tree::ptree& data) const;
+	std::string parseShippingOption(const ShippingOption::Ptr& object) const;
 
-	ShippingQuery::Ptr parseJsonAndGetShippingQuery(const boost::property_tree::ptree& data);
-	std::string parseShippingQuery(const ShippingQuery::Ptr& object);
+	ShippingQuery::Ptr parseJsonAndGetShippingQuery(const boost::property_tree::ptree& data) const;
+	std::string parseShippingQuery(const ShippingQuery::Ptr& object) const;
 
-	SuccessfulPayment::Ptr parseJsonAndGetSucessfulPayment(const boost::property_tree::ptree& data);
-	std::string parseSucessfulPayment(const SuccessfulPayment::Ptr& object);
+	SuccessfulPayment::Ptr parseJsonAndGetSucessfulPayment(const boost::property_tree::ptree& data) const;
+	std::string parseSucessfulPayment(const SuccessfulPayment::Ptr& object) const;
 
-	inline boost::property_tree::ptree parseJson(const std::string& json) {
+	inline boost::property_tree::ptree parseJson(const std::string& json) const {
 		boost::property_tree::ptree tree;
 		std::istringstream input(json);
 		boost::property_tree::read_json(input, tree);
@@ -214,25 +218,25 @@ namespace TgTypeParser {
 	}
 
 	template<typename T>
-	std::shared_ptr<T> tryParseJson(JsonToTgTypeFunc<T> parseFunc, const boost::property_tree::ptree& data, const std::string& keyName) {
+	std::shared_ptr<T> tryParseJson(JsonToTgTypeFunc<T> parseFunc, const boost::property_tree::ptree& data, const std::string& keyName) const {
 		auto treeItem = data.find(keyName);
 		if (treeItem == data.not_found()) {
 			return std::shared_ptr<T>();
 		}
-		return parseFunc(treeItem->second);
+		return (this->*parseFunc)(treeItem->second);
 	}
 
 	template<typename T>
-	std::vector<std::shared_ptr<T>> parseJsonAndGetArray(JsonToTgTypeFunc<T> parseFunc, const boost::property_tree::ptree& data) {
+	std::vector<std::shared_ptr<T>> parseJsonAndGetArray(JsonToTgTypeFunc<T> parseFunc, const boost::property_tree::ptree& data) const {
 		std::vector<std::shared_ptr<T>> result;
 		for (const std::pair<const std::string, boost::property_tree::ptree>& innerTreeItem : data) {
-			result.push_back(parseFunc(innerTreeItem.second));
+			result.push_back((this->*parseFunc)(innerTreeItem.second));
 		}
 		return result;
 	}
 
 	template<typename T>
-	std::vector<T> parseJsonAndGetArray(std::function<T(const boost::property_tree::ptree&)> parseFunc, const boost::property_tree::ptree& data, const std::string& keyName) {
+	std::vector<T> parseJsonAndGetArray(std::function<T(const boost::property_tree::ptree&)> parseFunc, const boost::property_tree::ptree& data, const std::string& keyName) const {
 		std::vector<T> result;
 		auto treeItem = data.find(keyName);
 		if (treeItem == data.not_found()) {
@@ -245,20 +249,20 @@ namespace TgTypeParser {
 	}
 
 	template<typename T>
-	std::vector<std::shared_ptr<T>> parseJsonAndGetArray(JsonToTgTypeFunc<T> parseFunc, const boost::property_tree::ptree& data, const std::string& keyName) {
+	std::vector<std::shared_ptr<T>> parseJsonAndGetArray(JsonToTgTypeFunc<T> parseFunc, const boost::property_tree::ptree& data, const std::string& keyName) const {
 		std::vector<std::shared_ptr<T>> result;
 		auto treeItem = data.find(keyName);
 		if (treeItem == data.not_found()) {
 			return result;
 		}
 		for (const std::pair<const std::string, boost::property_tree::ptree>& innerTreeItem : treeItem->second) {
-			result.push_back(parseFunc(innerTreeItem.second));
+			result.push_back((this->*parseFunc)(innerTreeItem.second));
 		}
 		return result;
 	}
 
 	template<typename T>
-	std::vector<std::vector<std::shared_ptr<T>>> parseJsonAndGet2DArray(JsonToTgTypeFunc<T> parseFunc, const boost::property_tree::ptree& data, const std::string& keyName) {
+	std::vector<std::vector<std::shared_ptr<T>>> parseJsonAndGet2DArray(JsonToTgTypeFunc<T> parseFunc, const boost::property_tree::ptree& data, const std::string& keyName) const {
 		std::vector<std::vector<std::shared_ptr<T>>> result;
 		auto treeItem = data.find(keyName);
 		if (treeItem == data.not_found()) {
@@ -267,7 +271,7 @@ namespace TgTypeParser {
 		for (const std::pair<const std::string, boost::property_tree::ptree>& innerTreeItem : treeItem->second) {
 			std::vector<std::shared_ptr<T>> innerResult;
 			for (const std::pair<const std::string, boost::property_tree::ptree>& innerInnerTreeItem : innerTreeItem.second) {
-				innerResult.push_back(parseFunc(innerInnerTreeItem.second));
+				innerResult.push_back((this->*parseFunc)(innerInnerTreeItem.second));
 			}
 			result.push_back(innerResult);
 		}
@@ -275,13 +279,13 @@ namespace TgTypeParser {
 	}
 
 	template<typename T>
-	std::string parseArray(TgTypeToJsonFunc<T> parseFunc, const std::vector<std::shared_ptr<T>>& objects) {
+	std::string parseArray(TgTypeToJsonFunc<T> parseFunc, const std::vector<std::shared_ptr<T>>& objects) const {
 		if (objects.empty())
 			return "";
 		std::string result;
 		result += '[';
 		for (const std::shared_ptr<T>& item : objects) {
-			result += parseFunc(item);
+			result += (this->*parseFunc)(item);
 			result += ',';
 		}
 		result.erase(result.length() - 1);
@@ -290,7 +294,7 @@ namespace TgTypeParser {
 	}
 
 	template<typename T>
-	std::string parseArray(std::function<T(const T&)> parseFunc, const std::vector<T>& objects) {
+	std::string parseArray(std::function<T(const T&)> parseFunc, const std::vector<T>& objects) const {
 		if (objects.empty())
 			return "";
 		std::string result;
@@ -305,7 +309,7 @@ namespace TgTypeParser {
 	}
 
 	template<typename T>
-	std::string parse2DArray(TgTypeToJsonFunc<T> parseFunc, const std::vector<std::vector<std::shared_ptr<T>>>& objects) {
+	std::string parse2DArray(TgTypeToJsonFunc<T> parseFunc, const std::vector<std::vector<std::shared_ptr<T>>>& objects) const {
 		if (objects.empty())
 			return "";
 		std::string result;
@@ -319,8 +323,9 @@ namespace TgTypeParser {
 		return result;
 	}
 
+private:
 	template<typename T>
-	void appendToJson(std::string& json, const std::string& varName, const T& value) {
+	void appendToJson(std::string& json, const std::string& varName, const T& value) const {
 		if (value == 0) {
 			return;
 		}
@@ -331,7 +336,7 @@ namespace TgTypeParser {
 		json += ',';
 	}
 
-	void appendToJson(std::string& json, const std::string& varName, const bool& value) {
+	void appendToJson(std::string& json, const std::string& varName, const bool& value) const {
 		json += '"';
 		json += varName;
 		json += "\":";
@@ -339,7 +344,7 @@ namespace TgTypeParser {
 		json += ',';
 	}
 
-	void appendToJson(std::string& json, const std::string& varName, const std::string& value);
+	void appendToJson(std::string& json, const std::string& varName, const std::string& value) const;
 };
 
 }
