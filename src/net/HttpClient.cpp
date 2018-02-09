@@ -30,7 +30,10 @@ using namespace boost::asio::ip;
 
 namespace TgBot {
 
-static boost::asio::io_service _ioService;
+HttpClient& HttpClient::getInstance() {
+	static HttpClient result;
+	return result;
+}
 
 std::string HttpClient::makeRequest(const Url& url, const std::vector<HttpReqArg>& args) {
 	ssl::context context(ssl::context::sslv23);
@@ -57,7 +60,7 @@ std::string HttpClient::makeRequest(const Url& url, const std::vector<HttpReqArg
 		response += std::string(buff, bytes);
 	}
 
-	return HttpParser::parseResponse(response);
+	return HttpParser::getInstance().parseResponse(response);
 }
 
 }

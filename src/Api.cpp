@@ -734,7 +734,7 @@ std::string Api::downloadFile(const std::string& filePath, const std::vector<Htt
 	url += "/";
 	url += filePath;
 
-	std::string serverResponse = HttpClient::makeRequest(url, args);
+	std::string serverResponse = HttpClient::getInstance().makeRequest(url, args);
 
 	return serverResponse;
 }
